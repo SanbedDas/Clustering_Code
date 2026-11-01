@@ -30,7 +30,32 @@ dim = 3;   % 3D: cubic box, positions (x, y, z)
 
 Nothing else needs to change. Positions, forces, active forces, periodic boundaries and the output files all use `dim` columns. For a 3D scan, give `fp` a name that says 3D (for example `outputs_3D_L_15_...`) so the results aren't mixed with the 2D ones.
 
-> **Particle numbers in 3D:** `pack2d.m` always uses the 2D area formula `round(φ·L²/(π r²))`, whatever `dim` is. In 3D that means `pfc` is not a volume fraction. For a volume fraction, the count would be `round(φ·L³/((4/3)π r³))`. Check which one you mean before running a 3D scan. The paper uses the volume fraction in 3D: `N_c = φ_c·6L³/π`.
+### Particle numbers in 3D: replace the formula in `pack2d.m`
+
+`pack2d.m` computes the particle counts from the **2D area** of the box. For a **3D cubic box**, `φ` must be a volume fraction, so you have to replace the formula with the 3D one before running with `dim = 3`.
+
+| | Box | Particle | Count |
+|---|---|---|---|
+| 2D | area `L²` | disk area `π r²` | `N = round(φ · L² / (π r²))` |
+| 3D | volume `L³` | sphere volume `(4/3) π r³` | `N = round(φ · L³ / ((4/3) π r³))` |
+
+With `r = 0.5` (unit diameter), the 3D formula becomes `N_c = φ_c · 6L³/π`, which is the one used in the paper.
+
+**2D version (as shipped):**
+
+```matlab
+Nc = round((PFc)*((L^2)/(pi*rc^2))); %Number of Cells
+Ng = round((PFg)*((L^2)/(pi*rg^2))); %Number of Gels
+```
+
+**3D version (use this for `dim = 3`):**
+
+```matlab
+Nc = round((PFc)*((L^3)/((4/3)*pi*rc^3))); %Number of Cells
+Ng = round((PFg)*((L^3)/((4/3)*pi*rg^3))); %Number of Gels
+```
+
+For example, the 3D box in the paper (`L = 15`, `φc = 0.3`, `φg = 0.7`) gives **1934 cells** and **4512 gels**.
 
 ## Parameter studies in the paper
 
