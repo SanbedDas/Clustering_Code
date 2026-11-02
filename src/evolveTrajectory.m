@@ -1,26 +1,19 @@
-function rfinal = evolveTrajectory(initial_r,dt,T,rg,rc,L,Nc,Ng,Ka,gam,folderPath,ecap,delta,dim)
+function rfinal = evolveTrajectory(initial_r,dt,T,rg,rc,L,Nc,Ng,Ka,gam,folderPath,ecap,delta,Eg_by_Ec,dim)
 
-rtime = initial_r(:,1:dim);
-
+rtime = initial_r(:,2:end);
+type = initial_r(:,1);
 iter = 0;
-
-type = initial_r(:,dim+1);
 
 Fprev = randn(Nc,dim)*gam;
 
 Fprev = [Fprev;zeros(Ng,dim)];
 
 for t=0:dt:T
-
     % tic
 
     rwt = [type,rtime];
-
-    % if (t==T)
-        make_file(rwt,iter,folderPath,dim);
-    % end
-
-    Fpassive = forces(rtime,type,rg,rc,L,ecap,delta,dim);
+    make_file(rwt,iter,folderPath,dim);
+    Fpassive = forces(rtime,type,rg,rc,L,ecap,delta,Eg_by_Ec,dim);
 
     Factive = evolve_active_force(Fprev,Nc,Ng,Ka,gam,dt,dim);
 
@@ -32,7 +25,7 @@ for t=0:dt:T
 
     iter = iter+1;
 
-    disp(t)
+    disp(t);
 
     Fprev = Factive;
     % toc

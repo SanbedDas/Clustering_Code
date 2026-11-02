@@ -22,5 +22,5 @@ minDistance = rc+rg;
         end
  end 
 rnewws = [cells;gel];
-rnewws = [rnewws,type];
+rnewws = [type,rnewws];
 end
