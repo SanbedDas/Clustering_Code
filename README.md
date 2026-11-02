@@ -29,8 +29,6 @@ dim = 2;   % 2D: square box, positions (x, y)
 dim = 3;   % 3D: cubic box, positions (x, y, z)
 ```
 
-Nothing else needs to change. Positions, forces, active forces, periodic boundaries and the output files all use `dim` columns. For a 3D scan, give `fp` a name that says 3D (for example `outputs_3D_L_15_...`) so the results aren't mixed with the 2D ones.
-
 ### Particle numbers: `pack.m` switches between 2D and 3D
 
 `pack.m` computes the number of cells and gels from the packing fractions.
