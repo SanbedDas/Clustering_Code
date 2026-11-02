@@ -1,5 +1,5 @@
 
-## MATLAB code for 2D overdamped simulations of active, adhesive cells in a bath of passive gel particles.
+## MATLAB code for overdamped simulations of active, adhesive cells in a bath of passive gel particles.
 ```matlab
 fp   = 'outputs_L_50_Gam_Ecap_scan_Phi_c_0_3'; % output root folder
 pfc  = 0.3;        % cell packing fraction (gel fraction = 1 - pfc)
