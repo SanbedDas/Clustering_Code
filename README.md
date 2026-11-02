@@ -33,7 +33,7 @@ Nothing else needs to change. Positions, forces, active forces, periodic boundar
 
 ### Particle numbers: `pack.m` switches between 2D and 3D
 
-`pack.m` computes the number of cells and gels from the packing fractions. It uses `dim` to choose the right formula, so nothing has to be edited when you switch dimension:
+`pack.m` computes the number of cells and gels from the packing fractions.
 
 ```matlab
 function [Nc,Ng] = pack(L,rg,rc,PFc,PFg,dim)
